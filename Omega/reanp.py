@@ -15,24 +15,27 @@ class Read:
 
 
 class Vpri:
+    #inp = printを命じられた変数名 
+    #x
     def run(self, inp):
         fil_data = open("sys\\var.oms", encoding="utf_8")
         cov = open("sys\\varconp.oms", "w", encoding="utf_8")
-        self.inp = inp
-        for line in fil_data:
-            line = line.replace("{", "").replace("}", "").replace("'", "")
-            line = line.rstrip()
-            s = line.split(":")[0]
-            cov.write(s + ":" + self.inp +"\n")
-            if s == self.inp:
-                print(line.split(":")[-1])
+        inp = inp.replace("\n", "")
+        for line in fil_data:#一行ずつ読み込まれたデータ
+            line = line.replace("{", "").replace("}", "").replace("'", "").replace(" ", "")
+            #line = line.rstrip()
+            s = line.split(":")[0]#変数名
+            i = line.split(":")[-1]#変数にあてられたデータ
+            cov.write(s + "," + inp +"\n")
+            if inp == s:
+                print(i)
                 break
             else:
-                print(line.split(":")[-1])
-                continue
+                pass
+
         fil_data.close()
         cov.close()
 """
-r = Read()
+r = Read("{a}")
 r.run()
 """

@@ -13,6 +13,16 @@ class Main:
         self.inp = self.inp.split("//")[0]   # //を取り外す
         self.inp = self.inp.split("#")[0]    # #を取り外す
 
+    def serf(self):
+        if self.inp.startswith("def ") or self.inp.startswith("    "):
+            self.inp = self.inp.replace("    ", "")
+            self.inp = self.inp.replace(";", "")
+            print(self.inp)
+
+            self.run()
+        else:
+            self.run()
+    
     #文字列をprintするときの処理
     def run(self):
         if self.inp.startswith("print{") and "}" in self.inp and '"' in self.inp:
@@ -23,7 +33,7 @@ class Main:
         
         #変数定義の場合の処理
         elif "=" in self.inp:
-            if self.inp.startswith("int"):
+            if self.inp.startswith("int "):
                 self.inp = self.inp.replace("int", "")#intを取り外す
                 self.inp = self.inp.replace(" ", "")
                 self.x = self.inp.split("=")[0]
@@ -32,6 +42,11 @@ class Main:
                 f = open("sys\\var.oms", "a", encoding="utf_8")
                 f.write(str(self.dict)+"\n")
                 f.close()
+            
+            if self.inp.startswith("void "):
+                self.inp = self.inp.replace("void", "")
+                self.inp = self.inp.replace(" ", "")
+
 
         #変数をprintするときの処理
         elif self.inp.startswith("print{") and "}" in self.inp:
@@ -40,13 +55,14 @@ class Main:
             r = Read(self.inp)
             r.run()
         
-        elif self.inp.startswith("def ") and "main()" in self.inp:
-            print("this is funcsion")
-
+        elif self.inp == "\n":
+            pass
         
         elif self.inp == "exit{}":
             sys.exit(0)
 
+        else:
+            print("Err:No funcsion Error")
 """
 def main():
     inp = input(">>")

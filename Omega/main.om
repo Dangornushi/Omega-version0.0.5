@@ -1,5 +1,7 @@
-def main(){
-    print{"start"}
-    int a = 15+2
-    print{a}
-}
+
+print{"start"}
+
+int a = 15+2
+int x = 52
+print{a}
+print{x}
